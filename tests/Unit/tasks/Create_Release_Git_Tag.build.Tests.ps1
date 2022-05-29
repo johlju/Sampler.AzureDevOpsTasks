@@ -32,9 +32,9 @@ Describe 'Create_Release_Git_Tag' {
 
             Mock -CommandName git
 
-            Mock -CommandName Sampler.AzureDevOpsTasks\Invoke-Git
+            Mock -CommandName Sampler.AzureDevOpsTasks\Invoke-AzureDevOpsTasksGit
 
-            Mock -CommandName Sampler.AzureDevOpsTasks\Invoke-Git -ParameterFilter {
+            Mock -CommandName Sampler.AzureDevOpsTasks\Invoke-AzureDevOpsTasksGit -ParameterFilter {
                 $Argument -contains 'rev-parse'
             } -MockWith {
                 return '0c23efc'
@@ -98,9 +98,9 @@ Describe 'Create_Release_Git_Tag' {
                 return 'v2.0.0'
             }
 
-            Mock -CommandName Sampler.AzureDevOpsTasks\Invoke-Git
+            Mock -CommandName Sampler.AzureDevOpsTasks\Invoke-AzureDevOpsTasksGit
 
-            Mock -CommandName Sampler.AzureDevOpsTasks\Invoke-Git -ParameterFilter {
+            Mock -CommandName Sampler.AzureDevOpsTasks\Invoke-AzureDevOpsTasksGit -ParameterFilter {
                 $Argument -contains 'rev-parse'
             } -MockWith {
                 return '0c23efc'

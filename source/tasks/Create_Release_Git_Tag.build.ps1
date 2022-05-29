@@ -130,8 +130,8 @@ task Create_Release_Git_Tag {
 
         Write-Build DarkGray "`tSetting git configuration."
 
-        Sampler.AzureDevOpsTasks\Invoke-Git -Argument @('config', 'user.name', $GitConfigUserName)
-        Sampler.AzureDevOpsTasks\Invoke-Git -Argument @('config', 'user.email', $GitConfigUserEmail)
+        Sampler.AzureDevOpsTasks\Invoke-AzureDevOpsTasksGit -Argument @('config', 'user.name', $GitConfigUserName)
+        Sampler.AzureDevOpsTasks\Invoke-AzureDevOpsTasksGit -Argument @('config', 'user.email', $GitConfigUserEmail)
 
         # Make empty line in output
         ""
@@ -140,11 +140,11 @@ task Create_Release_Git_Tag {
 
         Write-Build DarkGray ("`tGetting HEAD commit for the default branch '{0}." -f $MainGitBranch)
 
-        $defaultBranchHeadCommit = Sampler.AzureDevOpsTasks\Invoke-Git -Argument @('rev-parse', "origin/$MainGitBranch")
+        $defaultBranchHeadCommit = Sampler.AzureDevOpsTasks\Invoke-AzureDevOpsTasksGit -Argument @('rev-parse', "origin/$MainGitBranch")
 
         Write-Build DarkGray ("`tCreating tag '{0}' on the commit '{1}'." -f $releaseTag, $defaultBranchHeadCommit)
 
-        Sampler.AzureDevOpsTasks\Invoke-Git -Argument @('tag', $releaseTag, $defaultBranchHeadCommit)
+        Sampler.AzureDevOpsTasks\Invoke-AzureDevOpsTasksGit -Argument @('tag', $releaseTag, $defaultBranchHeadCommit)
 
         Write-Build DarkGray ("`tPushing created tag '{0}' to the default branch '{1}'." -f $releaseTag, $MainGitBranch)
 
@@ -161,7 +161,7 @@ task Create_Release_Git_Tag {
 
         $pushArguments += @('-c', 'http.sslbackend="schannel"', 'push', 'origin', '--tags')
 
-        Sampler.AzureDevOpsTasks\Invoke-Git -Argument $pushArguments
+        Sampler.AzureDevOpsTasks\Invoke-AzureDevOpsTasksGit -Argument $pushArguments
 
         <#
             Wait for a few seconds so the tag have time to propegate.
